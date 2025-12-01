@@ -1,0 +1,23 @@
+# Visual Studio
+.vs/
+*.vsidx
+
+# Build
+bin/
+obj/
+
+# Configuración de usuario
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Secretos locales
+appsettings.Development.json
+
+# MySQL data (no versionar sockets ni datafiles)
+mysql_data/
+*.sock
+*.pid
+*.err

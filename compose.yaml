@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:9.5
+    container_name: mysql-asisya
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Jorge2025*
+      MYSQL_DATABASE: PruebaAsisyaDB
+      MYSQL_USER: asisya_app                
+      MYSQL_PASSWORD: AppPassword123!
+    ports:
+      - "3307:3306"  # Usa 3307 para evitar conflicto con MySQL local
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pJorge2025*"]
+      timeout: 20s
+      retries: 10
+      start_period: 30s
+
+  asisya:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: asisya-api
+    restart: always
+    ports:
+      - "5000:5000"
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__MySqlConnection=server=mysql;port=3306;database=PruebaAsisyaDB;user=root;password=Jorge2025*;CharSet=utf8;SslMode=None
+    depends_on:
+      mysql:
+        condition: service_healthy
+    # Espera a que MySQL esté listo
+    command: ["sh", "-c", "sleep 20 && dotnet Asisya.dll"]
+
+volumes:
+  mysql_data:

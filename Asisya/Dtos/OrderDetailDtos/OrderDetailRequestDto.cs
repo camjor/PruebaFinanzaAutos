@@ -1,0 +1,9 @@
+namespace Asisya.Dtos.OrderDetailDtos;
+
+public class OrderDetailRequestDto
+{
+    public int ProductID { get; set; }
+    public decimal UnitPrice { get; set; }
+    public short Quantity { get; set; }
+    public float Discount { get; set; }
+}

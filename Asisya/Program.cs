@@ -27,18 +27,18 @@ using Asisya.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AppDbContext>(opt => {
+/*builder.Services.AddDbContext<AppDbContext>(opt => {
     opt.LogTo(Console.WriteLine, new [] {
         DbLoggerCategory.Database.Command.Name}, 
         LogLevel.Information).EnableSensitiveDataLogging();
 
     opt.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection")!);
-});
+});*/
 
-// var connectionMySqlString = builder.Configuration.GetConnectionString("MySqlConnection");
-//  builder.Services.AddDbContext<AppDbContext>(options => {
-//      options.UseMySql(connectionMySqlString, ServerVersion.AutoDetect(connectionMySqlString));
-//  });
+var connectionMySqlString = builder.Configuration.GetConnectionString("MySqlConnection");
+ builder.Services.AddDbContext<AppDbContext>(options => {
+     options.UseMySql(connectionMySqlString, ServerVersion.AutoDetect(connectionMySqlString));
+ });
 
 // Add services to the container.
 

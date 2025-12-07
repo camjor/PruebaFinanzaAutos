@@ -28,6 +28,7 @@ public class DatabaseIntegrationTests : IAsyncLifetime
     }
 
     [Fact]
+    [Trait("Category", "Integration")]
     public async Task InsertCategory_RealDatabase()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()

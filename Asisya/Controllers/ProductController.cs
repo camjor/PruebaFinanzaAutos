@@ -39,6 +39,20 @@ public class ProductController : ControllerBase
         return Ok(_mapper.Map<ProductResponseDto>(product));
     }
 
+    [HttpGet("buscar")]
+    public async Task<ActionResult<IEnumerable<ProductResponseDto>>> SearchProducts([FromQuery] string text)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return BadRequest(new { mensaje = "Debe ingresar texto para la búsqueda" });
+
+        var productos = await _repo.SearchProducts(text);
+
+        if (!productos.Any())
+            return NotFound(new { mensaje = $"No se encontraron productos con '{text}'" });
+
+        return Ok(_mapper.Map<IEnumerable<ProductResponseDto>>(productos));
+    }
+
     [HttpPost]
     public async Task<ActionResult<ProductResponseDto>> Create(ProductRequestDto dto)
     {

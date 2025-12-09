@@ -25,9 +25,20 @@ public class ProductRepository : IProductRepository
     public async Task<Product?> GetById(int id)
     {
         return await _context.Products!
-            .Include(p => p.Category)
+            .Include(p => p.Category) 
             .Include(p => p.Supplier)
             .FirstOrDefaultAsync(p => p.ProductID == id);
+    }
+
+    public async Task<IEnumerable<Product?>> SearchProducts(string text)
+    {
+        return await _context.Products!
+            .Where(x => x.ProductName!.Contains(text))
+            .Include(x => x.Category)
+            .Include(x => x.Supplier)
+            .AsNoTracking()
+            .ToListAsync();
+
     }
 
     public async Task Create(Product product)

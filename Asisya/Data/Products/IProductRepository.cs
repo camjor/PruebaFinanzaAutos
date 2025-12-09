@@ -6,6 +6,7 @@ public interface IProductRepository
 {
     Task<IEnumerable<Product>> GetAll();
     Task<Product?> GetById(int id);
+    Task<IEnumerable<Product?>> SearchProducts(string text);
     Task Create(Product product);
     Task BulkCreate(int count, int? categoryId, int? supplierId);
     Task Delete(int id);

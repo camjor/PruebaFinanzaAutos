@@ -86,7 +86,20 @@ dotnet ef database update
 ```bash
 dotnet run
 ```
-La API estará disponible en:
+### Ejecutar la API en Docker
+### 4️⃣ Construir la API y el MySQL como contenedores en Docker
+```bash
+docker compose build
+```
+### 5️⃣ Subir Contenerdores
+```bash
+docker compose up -d
+```
+Comprobar Logs APi
+```bash
+docker logs asisya-api
+```
+## La API estará disponible en:
 
 HTTP: http://localhost:5000
 
